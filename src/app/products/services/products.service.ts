@@ -9,7 +9,6 @@ export class ProductsService {
 
   constructor(private http:HttpClient) { }
 
-
   getAllProducts() {
     return this.http.get(environment.baseApi + 'products');
   }
@@ -20,6 +19,10 @@ export class ProductsService {
 
   getProductsByCategory(category:string){
     return this.http.get(environment.baseApi + 'products/category/' + category);
+  }
+
+  getProductById(id:string){
+      return this.http.get(environment.baseApi + 'products/' + id);
   }
 
 }

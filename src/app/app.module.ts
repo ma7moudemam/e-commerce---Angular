@@ -18,7 +18,8 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     ProductsModule,
     CartsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

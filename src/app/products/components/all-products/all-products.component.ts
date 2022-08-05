@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../../models/products.model';
 import { ProductsService } from '../../services/products.service';
 
 @Component({
@@ -9,8 +10,8 @@ import { ProductsService } from '../../services/products.service';
 export class AllProductsComponent implements OnInit {
 
 
-  products:any[]=[];
-  categories:any[]=[];
+  products:Product[]=[];
+  categories:string[]=[];
   loading:boolean = false;
   cartProducts:any[]=[];
   constructor(private service:ProductsService) { }
@@ -24,10 +25,14 @@ export class AllProductsComponent implements OnInit {
     this.loading = true;
     this.service.getAllProducts().subscribe((res:any)=>{
       this.products = res;
-      this.loading = false;
+      setTimeout(()=>{
+        this.loading = false;
+      },1000);
     } , error=>{
       console.log(error.message);
-      this.loading = false;
+      setTimeout(()=>{
+        this.loading = false;
+      },1000);
     });
   }
 
@@ -35,11 +40,14 @@ export class AllProductsComponent implements OnInit {
     this.loading = true;
     this.service.getAllCategories().subscribe((res:any)=>{
      this.categories = res;
+     setTimeout(()=>{
       this.loading = false;
-     console.log(res)
+    },1000);
     } , error=>{
       console.log(error.message);
-      this.loading = false;
+      setTimeout(()=>{
+        this.loading = false;
+      },1000);
     } );
   }
 
@@ -54,17 +62,21 @@ export class AllProductsComponent implements OnInit {
     this.loading = true;
     this.service.getProductsByCategory(category).subscribe((res:any)=>{
       this.products = res;
-      this.loading = false;
+      setTimeout(()=>{
+        this.loading = false;
+      },1000);
     } , error=>{
       console.log(error.message);
-      this.loading = false;
+      setTimeout(()=>{
+        this.loading = false;
+      },1000);
     } );
   }
 
   addToCart(product:any){
     if("cart" in localStorage){
       this.cartProducts = JSON.parse(localStorage.getItem('cart')!);
-      let exist = this.cartProducts.find(p=>p.id == product.id);
+      let exist = this.cartProducts.find(p=>p.item.id == product.item.id);
       if(exist){
         alert('Product already added to cart');
       }
